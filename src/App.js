@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Todo from "./todo.js";
+import Home from "./home";
+import Nav from "./nav";
+import { useSelector } from "react-redux";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
+  const todos = useSelector((state) => state.todos.todo);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <BrowserRouter>
+        <Nav data={todos}></Nav>
+        <Routes>
+          <Route exact path="/" element={<Home />}></Route>
+          {todos?.map((el) => (
+            <Route
+              key={el.id}
+              path={`/todos/${el.id}`}
+              element={<Todo value={el} />}
+            ></Route>
+          ))}
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
