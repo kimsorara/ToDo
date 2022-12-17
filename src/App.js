@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Nav data={todos}></Nav>
         <Routes>
           <Route exact path="/" element={<Home />}></Route>
